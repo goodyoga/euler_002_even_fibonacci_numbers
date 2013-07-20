@@ -8,9 +8,12 @@ void usage(void);
 
 int main(int argc __attribute__((unused)), char **argv)
 {
-    int i;
+    int not_exceed = 4000000;
+    int n,n_1,n_2;
     int sum;
-    int opt, not_exceed = 4000000;
+    int opt;
+
+
     while ( -1 != (opt = getopt(argc, argv, "hn:")) )
     {
         if('h' == opt)
@@ -18,18 +21,31 @@ int main(int argc __attribute__((unused)), char **argv)
 	  usage();
 	  exit(EXIT_SUCCESS);
 	}
-        else if ('b' == opt)
+        else if ('n' == opt)
 	{
-	  below = atoi(optarg);
+	    not_exceed = atoi(optarg);
 	}
     }
-    for ( i = 1,sum = 0 ; i <= not_exceed ; i++)
+
+    sum = 2;
+    n_2 = 1;
+    n_1 = 2;
+    while ( 1 )
     {
-        if ( !( i % 3 ) || !( i % 5 ) )
+        n = n_2 + n_1;
+        if ( n > not_exceed )  break;
+
+        if ( !(n % 2) )
         {
-            sum += i;
-            printf("%s: add:%d, sum:%d\n", argv[0], i, sum);
+            sum += n;
+            printf("%s: add:%d, sum:%d\n", argv[0], n, sum);
         }
+	else
+	  {
+            printf("%s: n:%d, sum:%d\n", argv[0], n, sum);
+	  }
+        n_2 = n_1;
+        n_1 = n;
     }
     return EXIT_SUCCESS;
 }
@@ -38,7 +54,7 @@ int main(int argc __attribute__((unused)), char **argv)
 void usage(void)
 {
     printf("    http://projecteuler.net/problem=2\n");
-    printf("    [Problem 1] Even Fibonacci numbers\n");
+    printf("    [Problem 2] Even Fibonacci numbers\n");
     printf("    Each new term in the Fibonacci sequence is generated\n"
            "    by adding the previous two terms. By starting \n"
            "    with 1 and 2, the first 10 terms will be:\n\n"
