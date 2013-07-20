@@ -4,22 +4,25 @@
 #include <stdlib.h>   /* atoi,exit   */
 #include <unistd.h>   /* getopt */
 
+int check_and_add(int n, int sum);
 void usage(void);
+char *prog;
 
 int main(int argc __attribute__((unused)), char **argv)
 {
     int not_exceed = 4000000;
-    int n,n_1,n_2;
-    int sum;
+    int n,n_1 = 2, n_2 = 1;
+    int sum = 0;
     int opt;
 
+    prog = argv[0];
 
     while ( -1 != (opt = getopt(argc, argv, "hn:")) )
     {
         if('h' == opt)
 	{
-	  usage();
-	  exit(EXIT_SUCCESS);
+            usage();
+            exit(EXIT_SUCCESS);
 	}
         else if ('n' == opt)
 	{
@@ -27,27 +30,34 @@ int main(int argc __attribute__((unused)), char **argv)
 	}
     }
 
-    sum = 2;
-    n_2 = 1;
-    n_1 = 2;
+    sum = check_and_add(n_2, sum);
+    sum = check_and_add(n_1, sum);
+
     while ( 1 )
     {
         n = n_2 + n_1;
         if ( n > not_exceed )  break;
 
-        if ( !(n % 2) )
-        {
-            sum += n;
-            printf("%s: add:%d, sum:%d\n", argv[0], n, sum);
-        }
-	else
-	  {
-            printf("%s: n:%d, sum:%d\n", argv[0], n, sum);
-	  }
+        sum = check_and_add(n, sum);
         n_2 = n_1;
         n_1 = n;
     }
     return EXIT_SUCCESS;
+}
+
+int check_and_add(int n, int sum)
+{
+    int s = sum;
+    if ( !(n % 2) )
+    {
+        s += n;
+        printf("%s: add:%d, sum:%d\n", prog, n, s);
+    }
+    else
+    {
+        printf("%s: n:%d, sum:%d\n", prog, n, s);
+    }
+    return s;
 }
 
 
