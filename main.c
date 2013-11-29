@@ -8,6 +8,54 @@ int check_and_add(int n, int sum);
 void usage(void);
 char *prog;
 
+//
+// @startuml
+// participant defaults
+// participant n
+// participant sum
+// 
+// note over defaults,sum:  [Problem 2] Even Fibonacci numbers
+// 
+// break h option
+// defaults->defaults: PRINT(usage)
+// defaults->defaults: exit(EXIT_SUCCESS)
+// end
+// defaults->defaults: not_exceed = 4000000
+// opt n option
+// defaults->defaults: not_exceed = value by cmdline
+// end
+// 
+// n->n: n2 = 1 : prev.prev
+// n->n: n1 = 2 : prev
+// alt even number
+// n->sum: sum = sum + n2
+// else odd number
+// note over n,sum: skip
+// end 
+// alt even number
+// n->sum: sum = sum + n1
+// else odd number
+// note over n,sum: skip
+// end 
+// 
+// 
+// loop
+// n -> n: n = n1 + n2
+// break n > not_exceed
+// note over n,sum: end
+// end
+// 
+// alt even number
+// n->sum: sum = sum + n
+// else odd number
+// note over n,sum: skip
+// end 
+// n->n: n_2 = n_1;
+// n->n: n_1 = n;
+// end loop
+// @enduml
+//
+
 int main(int argc __attribute__((unused)), char **argv)
 {
     int not_exceed = 4000000;
@@ -20,14 +68,14 @@ int main(int argc __attribute__((unused)), char **argv)
     while ( -1 != (opt = getopt(argc, argv, "hn:")) )
     {
         if('h' == opt)
-	{
+        {
             usage();
             exit(EXIT_SUCCESS);
-	}
+        }
         else if ('n' == opt)
-	{
-	    not_exceed = atoi(optarg);
-	}
+        {
+            not_exceed = atoi(optarg);
+        }
     }
 
     sum = check_and_add(n_2, sum);
