@@ -73,7 +73,7 @@ char *prog;
  * @enduml
  *
  */
-int main(int argc __attribute__((unused)), char **argv)
+int main(int argc, char **argv)
 {
     int not_exceed = 4000000;
     int n,n_1 = 2, n_2 = 1;
@@ -110,6 +110,12 @@ int main(int argc __attribute__((unused)), char **argv)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief check_and_add() adds the number if it is even.
+ * @param n the number to check.
+ * @param sum sum of even fibonacci.
+ * @return sum or sum+n
+ */
 int check_and_add(int n, int sum)
 {
     int s = sum;
@@ -125,7 +131,9 @@ int check_and_add(int n, int sum)
     return s;
 }
 
-
+/**
+ * @brief show help
+ */
 void usage(void)
 {
     printf("    http://projecteuler.net/problem=2\n");
