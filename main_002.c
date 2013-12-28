@@ -8,54 +8,71 @@ int check_and_add(int n, int sum);
 void usage(void);
 char *prog;
 
-//
-// @startuml
-// participant defaults
-// participant n
-// participant sum
-// 
-// note over defaults,sum:  [Problem 2] Even Fibonacci numbers
-// 
-// break h option
-// defaults->defaults: PRINT(usage)
-// defaults->defaults: exit(EXIT_SUCCESS)
-// end
-// defaults->defaults: not_exceed = 4000000
-// opt n option
-// defaults->defaults: not_exceed = value by cmdline
-// end
-// 
-// n->n: n2 = 1 : prev.prev
-// n->n: n1 = 2 : prev
-// alt even number
-// n->sum: sum = sum + n2
-// else odd number
-// note over n,sum: skip
-// end 
-// alt even number
-// n->sum: sum = sum + n1
-// else odd number
-// note over n,sum: skip
-// end 
-// 
-// 
-// loop
-// n -> n: n = n1 + n2
-// break n > not_exceed
-// note over n,sum: end
-// end
-// 
-// alt even number
-// n->sum: sum = sum + n
-// else odd number
-// note over n,sum: skip
-// end 
-// n->n: n_2 = n_1;
-// n->n: n_1 = n;
-// end loop
-// @enduml
-//
+/**
+ * @file
+ * @addtogroup EULER_002 Euler_002
+ * @{
+ */
 
+/**
+ * @brief even fibonacci numbers
+ * @param argc
+ * @param argv
+ * 
+ * @startuml{euler_002_even_fibonacci_numbers_seq.png}
+ * 
+ * participant defaults
+ * participant n
+ * participant sum
+ * 
+ * 
+ * note over defaults,sum:  [Problem 2] Even Fibonacci numbers
+ * 
+ * 
+ * break h option
+ *     defaults->defaults: PRINT(usage)
+ *     defaults->defaults: exit(EXIT_SUCCESS)
+ * end
+ * defaults->defaults: not_exceed = 4000000
+ * opt n option
+ *     defaults->defaults: not_exceed = value by cmdline
+ * end
+ * 
+ * 
+ * alt first iterration
+ *     n->n: n2 = 1 : prev.prev
+ *     n->n: n1 = 2 : prev
+ *     alt even number
+ *         n->sum: sum = sum + n2
+ *     else odd number
+ *         note over n,sum: skip
+ *     end alt
+ *     alt even number
+ *         n->sum: sum = sum + n1
+ *     else odd number
+ *         note over n,sum: skip
+ *     end 
+ * end alt
+ * 
+ * loop
+ *     n -> n: n = n1 + n2
+ *     break n > not_exceed
+ *         note over n,sum: end
+ *     end
+ * 
+ *     alt even number
+ *         n->sum: sum = sum + n
+ *     else odd number
+ *         note over n,sum: skip
+ *     end 
+ *     
+ *     n->n: n_2 = n_1;
+ *     n->n: n_1 = n;
+ * end loop
+ * 
+ * @enduml
+ *
+ */
 int main(int argc __attribute__((unused)), char **argv)
 {
     int not_exceed = 4000000;
@@ -123,3 +140,7 @@ void usage(void)
            "    -n <number>: solve this between 1 and not exceeding <number>\n");
     return;
 }
+
+/**
+ * @}
+ */
