@@ -9,7 +9,7 @@ void usage(void);
 
 /**
  * @file
- * @addtogroup EULER_002 Euler_002
+ * @addtogroup EULER_002 Euler_002_even_fibonacci_numbers
  * @{
  */
 
@@ -19,6 +19,7 @@ void usage(void);
  * @param argv
  * 
  * @startuml{euler_002_even_fibonacci_numbers_seq.png}
+ * title euler_002_even_fibonacci_numbers_seq.png
  * 
  * participant defaults
  * participant n
@@ -27,18 +28,19 @@ void usage(void);
  * 
  * note over defaults,sum:  [Problem 2] Even Fibonacci numbers
  * 
+ * alt setup
  * 
- * break h option
- *     defaults->defaults: PRINT(usage)
- *     defaults->defaults: exit(EXIT_SUCCESS)
- * end
- * defaults->defaults: not_exceed = 4000000
- * opt n option
- *     defaults->defaults: not_exceed = value by cmdline
- * end
+ *     break h option
+ *         defaults->defaults: PRINT(usage)
+ *         defaults->defaults: exit(EXIT_SUCCESS)
+ *     end break
+ *     defaults->defaults: not_exceed = 4,000,000
+ *     opt n option
+ *         defaults->defaults: not_exceed = value by cmdline
+ *     end
  * 
+ * else first iterration
  * 
- * alt first iterration
  *     n->n: n2 = 1 : prev.prev
  *     n->n: n1 = 2 : prev
  *     alt even number
@@ -51,23 +53,28 @@ void usage(void);
  *     else odd number
  *         note over n,sum: skip
  *     end 
- * end alt
  * 
- * loop
- *     n -> n: n = n1 + n2
- *     break n > not_exceed
- *         note over n,sum: end
- *     end
+ * else rest of iterrations
  * 
- *     alt even number
- *         n->sum: sum = sum + n
- *     else odd number
- *         note over n,sum: skip
- *     end 
+ *     loop
+ *         n -> n: n = n1 + n2
+ *         break n > not_exceed
+ *             note over n,sum: end
+ *         end
+ * 
+ *         alt even number
+ *             n->sum: sum = sum + n
+ *             sum->sum: print(add:...)
+ *         else odd number
+ *             sum->sum: print(n:...)
+ *             note over n,sum: skip
+ *         end 
  *     
- *     n->n: n_2 = n_1;
- *     n->n: n_1 = n;
- * end loop
+ *         n->n: n_2 = n_1;
+ *         n->n: n_1 = n;
+ *     end loop
+ * 
+ * end alt
  * 
  * @enduml
  *
