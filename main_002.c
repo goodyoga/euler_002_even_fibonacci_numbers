@@ -6,7 +6,6 @@
 
 int check_and_add(int n, int sum);
 void usage(void);
-char *prog;
 
 /**
  * @file
@@ -80,8 +79,6 @@ int main(int argc, char **argv)
     int sum = 0;
     int opt;
 
-    prog = argv[0];
-
     while ( -1 != (opt = getopt(argc, argv, "hn:")) )
     {
         if('h' == opt)
@@ -122,14 +119,18 @@ int check_and_add(int n, int sum)
     if ( !(n % 2) )
     {
         s += n;
-        printf("%s: add:%d, sum:%d\n", prog, n, s);
+        printf("    : add:%d,\tsum:%d\n", n, s);
     }
     else
     {
-        printf("%s: n:%d, sum:%d\n", prog, n, s);
+        printf("    : n:%d,\tsum:%d\n", n, s);
     }
     return s;
 }
+/**
+ * @}
+ */
+
 
 /**
  * @brief show help
@@ -149,6 +150,3 @@ void usage(void)
     return;
 }
 
-/**
- * @}
- */
